@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Meta Stuff :D-->
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Graph theory, Protein interactions, GO">
+    <meta name="description" content="graph visualization of biological data">
+    <!--IE Edge Meta Tag: rendering engine -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--ViewPort Tag: mobile friendly layout-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS Locally-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.css">
+
+    <script src="js/jquery-2.1.0.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/typer.js"></script>
+    <script src="js/blocs.js"></script>
+    <script src="js/script.js"></script>
+
+    <link rel='stylesheet' href='css/et-line.min.css'/>
+    <link rel='stylesheet' href='css/font-awesome.min.css'/>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat&subset=latin,latin-ext' rel='stylesheet'
+          type='text/css'>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- START SIGMA IMPORTS -->
+    <script src="linkurious.js/src/sigma.core.js"></script>
+    <script src="linkurious.js/src/conrad.js"></script>
+    <script src="linkurious.js/src/utils/sigma.utils.js"></script>
+    <script src="linkurious.js/src/utils/sigma.polyfills.js"></script>
+    <script src="linkurious.js/src/sigma.settings.js"></script>
+    <script src="linkurious.js/src/classes/sigma.classes.dispatcher.js"></script>
+    <script src="linkurious.js/src/classes/sigma.classes.configurable.js"></script>
+    <script src="linkurious.js/src/classes/sigma.classes.graph.js"></script>
+    <script src="linkurious.js/src/classes/sigma.classes.camera.js"></script>
+    <script src="linkurious.js/src/classes/sigma.classes.quad.js"></script>
+    <script src="linkurious.js/src/captors/sigma.captors.mouse.js"></script>
+    <script src="linkurious.js/src/captors/sigma.captors.touch.js"></script>
+    <script src="linkurious.js/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="linkurious.js/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="linkurious.js/src/renderers/sigma.renderers.svg.js"></script>
+    <script src="linkurious.js/src/renderers/sigma.renderers.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="linkurious.js/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="linkurious.js/src/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="linkurious.js/src/misc/sigma.misc.animation.js"></script>
+    <script src="linkurious.js/src/misc/sigma.misc.bindEvents.js"></script>
+    <script src="linkurious.js/src/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="linkurious.js/src/misc/sigma.misc.drawHovers.js"></script>
+    <!-- END SIGMA IMPORTS -->
+    <!-- START PLUGINS IMPORTS -->
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/settings.js"></script>
+    <script src="linkurious.js/plugins/sigma.helpers.graph/sigma.helpers.graph.js"></script>
+    <!--Cypher Parser-->
+    <script src="linkurious.js/plugins/sigma.parsers.cypher/sigma.parsers.cypher.js"></script>
+    <script src="linkurious.js/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+    <!--Halo Plugin-->
+    <script src="linkurious.js/plugins/sigma.renderers.halo/settings.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.halo/sigma.renderers.halo.js"></script>
+    <!--Drag Plugin-->
+    <script src="linkurious.js/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.keyboard/sigma.plugins.keyboard.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.activeState/sigma.plugins.activeState.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.select/sigma.plugins.select.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.lasso/sigma.plugins.lasso.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
+
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.tapered.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.tapered.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="linkurious.js/plugins/sigma.exporters.json/sigma.exporters.json.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
+    <script src="linkurious.js/plugins/sigma.layouts.fruchtermanReingold/sigma.layout.fruchtermanReingold.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
+
+
+
+    <title>Graph4Bio</title>
+
+</head>
+<body>
+<div class="page-container">
+
+    <!-- Navigation Bloc -->
+    <div class="bloc bgc-carmine-pink d-bloc" id="nav-bloc">
+        <div class="container">
+            <nav class="navbar row">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><span class="fa fa-share-alt fa-rotate-90 icon-white zoomIn animated"></span> Graph4Bio</a>
+                    <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse navbar-1">
+                    <ul class="site-navigation nav navbar-nav">
+
+                        <li>
+                            <a onclick="scrollToTarget('#GO')">graphGO</a>
+                        </li>
+                        <li>
+                            <a onclick="scrollToTarget('#credits')">Credits</a>
+                        </li>
+                        <li>
+                            <a onclick="scrollToTarget('#faq')">FAQ</a>
+                        </li>
+                        <li>
+                            <a onclick="scrollToTarget('#bloc-8')">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navigation Bloc END
+
+
+
+    <!-- header -->
+    <div class="bloc bgc-outer-space bg-graph d-bloc" id="header">
+        <div class="container bloc-xl">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="text-center  mg-lg animated fadeInUp animDelay02">
+                        Graph4Bio is a hosting platform for graph-based application for Biological Data
+                    </p>
+
+                    <div class="text-center">
+                        <a class="btn  btn-xl btn-wire wire-btn-carmine-pink animDelay06 animated fadeInUp"
+                           onclick="scrollToTarget('#GO')">graphGO</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header END -->
+
+    <!-- GO -->
+
+
+    <!-- Credits -->
+    <div class="bloc l-bloc bgc-white" id="credits">
+        <div class="container bloc-lg">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="text-center mg-md ">
+                        Credits
+                    </h2>
+
+                    <p class="text-center sub-heading">
+                        Many thanks to the following for their huge participation in this project
+                    </p>
+                </div>
+            </div>
+            <div class="row voffset">
+                <div class="col-sm-3">
+                    <a href="https://umexpert.um.edu.my/sarinder" data-lightbox="img/ISB.png" data-caption="Many thanks to my great University, especially to Institute of Biological Sciences and Prof. Dr. Sarinder Kaur for all the help and support they gave to this project "><img
+                            src="img/ISB.png" class="img-responsive animated zoomIn" alt="Credits"/></a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="http://bio4j.com" data-lightbox="img/bio4j.png" data-caption="Bio4j is a bioinformatics graph data platform, integrating most data available in Uniprot KB (SwissProt + Trembl), Gene Ontology (GO), UniRef (50,90,100), NCBI Taxonomy, and Expasy Enzyme DB. I have not used their database implementation but I have learned a lot from their work "><img
+                            src="img/bio4j.png" class="img-responsive animated zoomIn" alt="Credits"/></a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="http://linkurio.us" data-lightbox="img/linkurious.png" data-caption="Linkurious is sigma.js based graph visualization tool and its super friendly :)"><img
+                            src="img/linkurious.png" class="img-responsive animated zoomIn" alt="http://linkurio.us"/></a>
+                </div>
+
+                <div class="col-sm-3">
+                    <a href="http://geneontology.org" data-lightbox="img/GO.png" data-caption="The Gene Ontology (GO) project is a major bioinformatics initiative to develop a computational representation of our evolving knowledge of how genes encode biological functions at the molecular, cellular and tissue system levels. and Thanks for making their data freely available."><img
+                            src="img/GO.png" class="img-responsive animated zoomIn" alt="Credits"/></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Credits END -->
+
+
+    <!--FAQ-->
+    <div class="bloc l-bloc" id="faq">
+        <div class="container bloc-lg">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="text-center mg-md ">
+                        FAQ
+                    </h2>
+
+                    <p class="sub-heading text-center">
+                        Get Answers For Frequently Asked Questions
+                    </p>
+                </div>
+            </div>
+            <div class="row voffset-mg">
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion" role="tablist">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseOne" aria-expanded="false">Who are you guys?</a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-expanded="false"
+                                 style="height: 0px;">
+                                <div class="panel-body">
+                                    <p>
+                                        Im final year student at University of Malaya - Bioinformatics Programe in Kuala Lumpur/ Malaysia
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseTwo" aria-expanded="false">What is Graph4Bio?</a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    Graph4Bio is a platform which contains a group of graph-based tool to analyse and visualize biological data
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseThree" aria-expanded="false">What is graphGO</a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    graphGO is a super awesome graph-based GO terms browser, we tried to make it interactive and simple tool
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ScrollToTop Button -->
+    <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span
+            class="fa fa-chevron-up"></span></a>
+    <!-- ScrollToTop Button END-->
+
+
+    <div class="bloc l-bloc" id="bloc-8">
+        <div class="container bloc-lg">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="text-center mg-md ">
+                        Contact Us
+                    </h2>
+
+                    <p class="sub-heading text-center">
+                        We would love to hear your ideas and suggestions :)
+                    </p>
+                </div>
+            </div>
+            <br>
+
+            <!--here goes -->
+            <div class="container"> <!--Start of Contact Form-->
+                <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">First Name</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input  name="first_name" id= "contactFName" placeholder="First Name" class="form-control"  type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" >Last Name</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input name="last_name" id= "contactLName" placeholder="Last Name" class="form-control"  type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">E-Mail</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    <input name="email" id= "contactEmail" placeholder="E-Mail Address" class="form-control"  type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Comment</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                    <textarea class="form-control" id= "contactCom" name="comment" placeholder="Comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Success message -->
+                        <div class="alert alert-success" role="alert" id="success_message">Success <i class="fa fa-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-default" >Send <span class="fa fa-send"></span></button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="container bloc-sm">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8 col-md-offset-2">
+                            <div class="col-sm-3 text-center">
+                                <a class="social-lg"
+                                   href="https://twitter.com/FadelBerkadar" target="_blank"><span
+                                        class="fa fa-twitter icon-md icon-carmine-pink"></span></a>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <a class="social-lg" href="https://www.facebook.com/abo.alfdel.7" target="_blank"><span
+                                        class="fa fa-facebook icon-md icon-carmine-pink"></span></a>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <a class="social-lg"
+                                   href="https://plus.google.com/u/0/115893292808567934840/posts"
+                                   target="_blank"><span class="fa fa-google-plus icon-md icon-carmine-pink"></span></a>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <a class="social-lg"
+                                   href="https://github.com/FadelBerakdar"
+                                   target="_blank"><span class="fa fa-github icon-md icon-carmine-pink"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2 text-center mg-md">Created by <a
+                    href="http://rosalind.info/users/mfb.bioinfo" target="_blank">Fadel Berakdar</a></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
