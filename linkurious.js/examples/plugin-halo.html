@@ -123,7 +123,7 @@ s = new sigma({
   settings: {
     nodeHaloColor: '#ecf0f1',
     edgeHaloColor: '#ecf0f1',
-    nodeHaloSize: 50,
+    nodeHaloSize: 20,
     edgeHaloSize: 10
   }
 });
@@ -133,16 +133,16 @@ function renderHalo() {
     nodes: s.graph.nodes()
   });
 }
+//
+//renderHalo();
 
-renderHalo();
-
-s.renderers[0].bind('render', function(e) {
-  renderHalo();
-});
-
-s.bind('clickStage', function(e) {
-  renderHalo();
-});
+//s.renderers[0].bind('render', function(e) {
+//  renderHalo();
+//});
+//
+//s.bind('clickStage', function(e) {
+//  renderHalo();
+//});
 
 s.bind('hovers', function(e) {
   var adjacentNodes = [],

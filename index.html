@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Graph4Bio</title>
     <!--Meta Stuff :D-->
     <meta charset="UTF-8">
     <meta name="keywords" content="Graph theory, Protein interactions, GO">
@@ -18,7 +19,9 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/typer.js"></script>
     <script src="js/blocs.js"></script>
+    <script src="js/myScript.js"></script>
     <script src="js/script.js"></script>
+
 
     <link rel='stylesheet' href='css/et-line.min.css'/>
     <link rel='stylesheet' href='css/font-awesome.min.css'/>
@@ -27,8 +30,8 @@
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
-
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 
     <!-- START SIGMA IMPORTS -->
     <script src="linkurious.js/src/sigma.core.js"></script>
@@ -45,19 +48,14 @@
     <script src="linkurious.js/src/captors/sigma.captors.touch.js"></script>
     <script src="linkurious.js/src/renderers/sigma.renderers.canvas.js"></script>
     <script src="linkurious.js/src/renderers/sigma.renderers.webgl.js"></script>
-    <script src="linkurious.js/src/renderers/sigma.renderers.svg.js"></script>
     <script src="linkurious.js/src/renderers/sigma.renderers.def.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
-    <script src="linkurious.js/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.tapered.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.tapered.js"></script>
     <script src="linkurious.js/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
     <script src="linkurious.js/src/middlewares/sigma.middlewares.rescale.js"></script>
     <script src="linkurious.js/src/middlewares/sigma.middlewares.copy.js"></script>
@@ -65,6 +63,9 @@
     <script src="linkurious.js/src/misc/sigma.misc.bindEvents.js"></script>
     <script src="linkurious.js/src/misc/sigma.misc.bindDOMEvents.js"></script>
     <script src="linkurious.js/src/misc/sigma.misc.drawHovers.js"></script>
+    <script src="linkurious.js/src/renderers/sigma.renderers.svg.js"></script>
+    <!-- END SIGMA IMPORTS -->
+
     <!-- END SIGMA IMPORTS -->
     <!-- START PLUGINS IMPORTS -->
     <script src="linkurious.js/plugins/sigma.renderers.linkurious/settings.js"></script>
@@ -81,31 +82,32 @@
     <script src="linkurious.js/plugins/sigma.plugins.activeState/sigma.plugins.activeState.js"></script>
     <script src="linkurious.js/plugins/sigma.plugins.select/sigma.plugins.select.js"></script>
     <script src="linkurious.js/plugins/sigma.plugins.lasso/sigma.plugins.lasso.js"></script>
+
     <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
     <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
     <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
-
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.tapered.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.tapered.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
-    <script src="linkurious.js/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
     <script src="linkurious.js/plugins/sigma.exporters.json/sigma.exporters.json.js"></script>
     <script src="linkurious.js/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
-    <script src="linkurious.js/plugins/sigma.layouts.fruchtermanReingold/sigma.layout.fruchtermanReingold.js"></script>
     <script src="linkurious.js/plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="linkurious.js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
 
+    <!--Dagre Layout-->
+    <script src="linkurious.js/lib/dagre.js"></script>
+    <script src="linkurious.js/plugins/sigma.layouts.dagre/sigma.layout.dagre.js"></script>
+    <!-- END PLUGINS IMPORTS -->
 
+    <!--fruchtermanReingold Layout-->
+    <script src="linkurious.js/plugins/sigma.layouts.fruchtermanReingold/sigma.layout.fruchtermanReingold.js"></script>
+    <!-- Legend Styling-->
 
+    <script src="linkurious.js/plugins/sigma.plugins.design/sigma.plugins.design.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.legend/settings.js"></script>
+    <script src="linkurious.js/plugins/sigma.plugins.legend/sigma.plugins.legend.js"></script>
 
-    <title>Graph4Bio</title>
 
 </head>
 <body>
@@ -153,7 +155,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p class="text-center  mg-lg animated fadeInUp animDelay02">
-                        Graph4Bio is a hosting platform for graph-based application for Biological Data
+                        Graph4Bio is a Platform for Graph-based Applications Which Aid In Analysing and Visualizing Biological Data
                     </p>
 
                     <div class="text-center">
@@ -167,6 +169,1334 @@
     <!-- header END -->
 
     <!-- GO -->
+    <div class="bloc bgc-platinum l-bloc" id="GO">
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+                <h2 class="text-center mg-md ">
+                    graphGO
+                </h2>
+
+                <p class="text-center sub-heading">
+                    Please key in the GO terms separated by ',' and explore the data associated with the terms by right click on any node to show the GO term name or by double click on any node to show more details. Or simply hover over any node to highlight its related nodes and relationships.
+                </p>
+            </div>
+        </div>
+
+        <div class="container" id="go-terms">
+            <form action="" >
+                <fieldset  class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputTerms" placeholder="GO:0000177, GO:0051051, GO:0010277">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" onClick="document.getElementById('tabs').scrollIntoView();" type="button" id="submit" >Submit</button>
+                        </span>
+                        <span class="input-group-btn">
+                                <button class="btn btn-default" onClick="document.getElementById('tabs').scrollIntoView();" type="button" id="example" >Example</button>
+                        </span>
+
+                    </div><!-- /input-group -->
+                </fieldset>
+            </form>
+        </div>
+        <div class="container" id="tabs">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a href="#home" id ="mainTab" class="backgroundRed" data-toggle="tab">Main </a>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">
+                            <div class="graph-containers container col-xs-12 col-sm-12 col-md-12 col-lg-12" id="graph-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+
+                //            GO:0000177, GO:0051051
+                //  when example buttons is clicked
+                $('#example').click(function(event) {
+
+                    $('#inputTerms').val('GO:0051051');
+                    console.log("example button clicked");
+                    $('.nav-tabs a:first').tab('show');
+
+                    // deleting any previous graph in main tab
+                    $("#graph-container").empty();
+
+
+                    // Start of initializing the graph
+
+                    {
+                        // Instantiate graph object
+                        var g = {
+                            nodes: [],
+                            edges: []
+                        };
+
+                        // Instantiate sigma object
+                        var s = new sigma({
+                            graph: g,
+                            renderer: {
+                                container: document.getElementById('graph-container'),
+                                type: 'canvas'
+                            },
+                            settings: {
+                                maxNodeSize: 30,
+                                maxEdgeSize: 12,
+                                labelAlignment: 'inside',
+                                doubleClickEnabled: false,
+                                defaultLabelSize:10,
+                                drawEdgeLabels:false,
+                                sideMargin: 30,
+                                font:'arial',
+                                fontStyle:'bold',
+                                hoverFontStyle:'bold',
+                                labelSize:"fixed",
+                                labelThreshold:20,
+                                zoomMax: 1,
+                                defaultLabelColor:"#fdffff",
+                                defaultLabelHoverColor:"#fdffff",
+                                nodeHaloColor: '#ecf0f1',
+                                edgeHaloColor: '#ecf0f1',
+                                nodeHaloSize: 18,
+                                edgeHaloSize: 20
+
+                            }
+                        });
+
+                        // sigma is ready
+                        console.log("sigma-initiated",s);
+                        sigma.renderers.def = sigma.renderers.canvas;
+
+                        query = "MATCH (from), (to), paths = (from)-[*]->(to) WHERE from.ID =  'GO:0051051' AND to.ID IN ['GO:0005575','GO:0008150', 'GO:0003674'] RETURN paths";
+
+                        // Start of passing cypher query
+                        {
+                            sigma.neo4j.cypher(
+                                    { url: 'http://52.51.139.110:7474'},
+                                    query,
+                                    s,
+                                    function() {
+                                        var i = 0;
+                                        var N = s.graph.nodes().length;
+                                        s.graph.nodes().forEach(function(n) {
+                                            n.label = n.neo4j_data['ID'];
+                                            n.name_Spaces = n.neo4j_labels[0];
+                                            if (n.name_Spaces  ==="BiologicalProcess"){
+                                                n.color = '#760F22';
+//                                    hover_color = '#000';
+                                            }
+                                            if (n.name_Spaces ==="MolecularFunction"){
+                                                n.color = '#2D73CB';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.name_Spaces ==="CellularComponent"){
+                                                n.color = '#218655';
+                                                hover_color = '#000';
+                                            }
+
+//                                var arr = ['GO:0008150','GO:0009653','GO:0048731','GO:0048856','GO:0009790','GO:0003206','GO:0048646','GO:0009887','GO:0003007'];
+//                                var arr_bool = (arr.indexOf(n.neo4j_data['go_term_id']) > -1);
+                                        });
+                                        s.graph.edges().forEach(function(n) {
+                                            n.type = 'tapered';
+                                            n.relationships = n.label;
+                                            n.size = 40;
+                                            if (n.label ==="is_a"){
+                                                n.color = '#628FCC';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="negatively_regulates"){
+                                                n.color = '#f75541';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="positively_regulates"){
+                                                n.color = '#43cf67';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="regulates"){
+                                                n.color = '#ddf76d';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="part_of"){
+                                                n.color = '#585858';
+                                                hover_color = '#000';
+                                            }
+                                        });
+                                        // Start of Legend Styling
+                                        {
+                                            var myStyles = {
+                                                nodes: {
+                                                    color: {
+                                                        by: 'name_Spaces',
+                                                        scheme: 'schemes.categoryScheme'
+                                                    }
+                                                },
+                                                edges: {
+                                                    color: {
+                                                        by: 'relationships',
+                                                        scheme: 'schemes.relationTypeScheme'
+                                                    }
+                                                }
+                                            };
+
+                                            var myPalette = {
+                                                schemes: {
+                                                    categoryScheme: {
+                                                        'BiologicalProcess': '#760F22',
+                                                        'MolecularFunction': '#2D73CB',
+                                                        'CellularComponent': '#218655'
+                                                    },
+
+                                                    relationTypeScheme: {
+                                                        'is_a': '#628FCC',
+                                                        'negatively_regulates': '#CC3722',
+                                                        'positively_regulates': '#85CC76',
+                                                        'regulates':'#ddf76d',
+                                                        'part_of':'#585858'
+                                                    }
+                                                }
+                                            };
+
+                                            var design = sigma.plugins.design(s, {
+                                                styles: myStyles,
+                                                palette: myPalette
+                                            });
+
+                                            design.apply();
+//                    s.refresh();
+
+
+
+                                            var legendPlugin, textWidget, nodeIconWidget;
+
+                                            function init() {
+                                                legendPlugin = sigma.plugins.legend(s, true);
+//    legendPlugin.removeAllWidgets();
+                                                legendPlugin.setExternalCSS(['http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css']);
+                                                legendPlugin.setPlacement('right');
+                                                legendPlugin.addWidget('edge', 'size').setUnit('%');
+//    textWidget.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius ante ac orci ullamcorper porttitor. Curabitur euismod, arcu quis eleifend faucibus, tellus urna hendrerit enim, sit amet lacinia felis massa quis nibh.');
+//    legendPlugin.setVisibility(false);
+//    legendPlugin.exportPng();
+
+//    setTimeout(function () { legendPlugin.exportSvg(); }, 500);
+                                            }
+//                    setTimeout(init, 4000);
+
+                                            // In case the WebGL renderer is used, we must wait for FontAwesome to be loaded.
+                                            // http://www.w3.org/TR/css-font-loading/
+                                            if (document.fonts) {
+                                                // document.fonts.ready() method is going to be replaced with
+                                                // document.fonts.ready attribute in the future.
+                                                var fontsReady = document.fonts.ready;
+                                                if (typeof(fontsReady) == "function") {
+                                                    fontsReady = document.fonts.ready();
+                                                }
+                                                fontsReady.then(init);
+                                            }
+                                            else {
+                                                // wait or use a polyfill such as:
+                                                // https://github.com/zachleat/fontfaceonload
+                                                // https://github.com/smnh/FontLoader
+                                                setTimeout(init, 1000);
+                                            }
+                                        }
+                                        // End of Legend Styling end
+
+                                        // Configure the DAG layout:
+                                        var dagreListener = sigma.layouts.dagre.configure(s, {
+                                            directed: true, // take edge direction into account
+                                            rankdir: 'BT',  // Direction for rank nodes. Can be TB, BT, LR, or RL,
+                                                            // where T = top, B = bottom, L = left, and R = right.
+                                            easing: 'quadraticInOut', // animation transition function
+                                            duration: 800,   // animation duration
+                                            // nodes : s.graph.nodes().slice(0,30), // subset of nodes
+                                            // boundingBox: {minX: 10, maxX: 20, minY: 10, maxY:20} // constrain layout bounds ; object or true (all current positions of the given nodes)
+                                        });
+
+                                        // Bind the events:
+                                        dagreListener.bind('start stop interpolate', function(e) {
+                                        });
+
+
+                                        // Start the DAG layout:
+                                        sigma.layouts.dagre.start(s);
+
+
+                                        s.refresh();
+
+                                        // Instanciate the ActiveState plugin:
+                                        var activeState = sigma.plugins.activeState(s);
+
+                                        // Initialize the dragNodes plugin:
+                                        var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                                        // halo on active nodes:
+                                        function renderHalo() {
+                                            s.renderers[0].halo({
+                                                nodes: activeState.nodes()
+                                            });
+                                        }
+                                        s.renderers[0].bind('render', function(e) {
+                                            renderHalo();
+                                        })
+
+                                    }
+                            );
+                        }
+                        // End of passing cypher query
+                        s.refresh();
+
+
+                        // Start of Halo
+                        {
+                            // Remove duplicates in a specified array.
+                            // See http://stackoverflow.com/a/1584370
+                            function arrayUnique(array) {
+                                var a = array.concat();
+                                for(var i=0; i<a.length; ++i) {
+                                    for(var j=i+1; j<a.length; ++j) {
+                                        if(a[i] === a[j])
+                                            a.splice(j--, 1);
+                                    }
+                                }
+                                return a;
+                            };
+                            s.bind('hovers', function(e) {
+                                var adjacentNodes = [],
+                                        adjacentEdges = [];
+
+                                if (!e.data.enter.nodes.length) return;
+
+                                // Get adjacent nodes:
+                                e.data.enter.nodes.forEach(function(node) {
+                                    adjacentNodes = adjacentNodes.concat(s.graph.adjacentNodes(node.id));
+                                });
+
+                                // Add hovered nodes to the array and remove duplicates:
+                                adjacentNodes = arrayUnique(adjacentNodes.concat(e.data.enter.nodes));
+
+                                // Get adjacent edges:
+                                e.data.enter.nodes.forEach(function(node) {
+                                    adjacentEdges = adjacentEdges.concat(s.graph.adjacentEdges(node.id));
+                                });
+
+                                // Remove duplicates:
+                                adjacentEdges = arrayUnique(adjacentEdges);
+
+                                // Render halo:
+                                s.renderers[0].halo({
+                                    nodes: adjacentNodes,
+                                    edges: adjacentEdges
+                                });
+                            });
+                        }
+                        // End of Halo
+
+                        // start of Download Image
+                        {
+
+//                        function generateImage(mouse, clip) {
+////                                var size = parseInt(_.$("width").value);
+////                                var color = _.$("color").value;
+//                            console.log("download buttons been clicked again");
+//                            sigma.plugins.image(s, s.renderers[0], {
+//                                download: true,
+//                                size: 1800,
+//                                margin: 50,
+//                                background: '#FFFFFF',
+//                                clip: clip,
+//                                zoomRatio: 1,
+//                                labels: false
+//                            });
+//                        }
+//                        document.getElementById("pngClick").onclick = function() {generateImage()};
+                        }
+                        // End of Downloading Image
+
+                        // Start of tooltips
+                        { // start of tooltips
+                            var config = {
+                                node: [{
+                                    show: 'rightClickNode',
+                                    cssClass: 'sigma-tooltip',
+                                    position: 'bottom',
+                                    autoadjust: true,
+                                    template:
+                                    '<div class="arrow"></div>' +
+                                    ' <div class="sigma-tooltip-header">{{label}}</div>' +
+                                    '  <div class="sigma-tooltip-body">' +
+                                    '   <p>{{neo4j_data.Name}} </p>' +
+                                    '  </div>' ,
+                                    renderer: function(node, template) {
+                                        node.degree = this.degree(node.id);
+                                        return Mustache.render(template, node);
+                                    }
+                                }],
+                                stage: {
+                                    template:
+                                    '<div class="arrow"></div>' +
+                                    '<div class="sigma-tooltip-header"> click on any node</div>'
+                                }
+                            };
+
+//             Instanciate the tooltips plugin with a Mustache renderer for node tooltips:
+                            var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+
+
+                            tooltips.bind('shown', function(event) {
+                            });
+
+                            tooltips.bind('hidden', function(event) {
+                            });
+                        }
+                        // End of tootips
+
+
+
+                        // Start of Node double click binding
+                        s.bind('doubleClickNode ', function(e) {
+
+                            $('.nav-pills a:first').tab('show');
+
+
+
+                            console.log("node is clicked!");
+                            id = e.data.node.neo4j_data['ID'];
+                            var name = e.data.node.neo4j_data['Name'];
+                            var def = e.data.node.neo4j_data['Definition'];
+                            var com = e.data.node.neo4j_data['Comment'];
+                            var syn = e.data.node.neo4j_data['Synonyms'];
+                            var alt = e.data.node.neo4j_data['AlternativeIDs'];
+                            var link = e.data.node.neo4j_data['ID'];
+
+                            var modal = document.getElementById('myModal');
+
+                            $('#modalLabel').html ( id );
+                            $('#modalName').html ( name );
+                            $('#modalDef').html ( def );
+                            $('#modalCom').html ( com );
+//                        $('#modalSyn').html ( syn );
+//                        $('#modalAlt').html ( alt );
+                            var synLength = syn.length;
+                            for (var i = 0; i < synLength; i++) {
+                                $('#modalSyn').append(  "<li>"+syn[i]+"</li>");
+                            }
+
+                            var altLength = alt.length;
+                            for (var i = 0; i < altLength; i++) {
+                                $('#modalAlt').append(  "<li>"+alt[i]+"</li>");
+                            }
+
+                            $('#modalLink').html ( id );
+                            $('#modalLink').attr('href','http://amigo.geneontology.org/amigo/term/'+ id);
+                            $('#myModal').modal('show')  ;
+
+
+                        });
+                        // End of Node double click binding
+
+                    }
+                    // End of initializing the graph
+
+
+                });
+
+                //  when submit buttons is clicked
+                $('#submit').click(function(event) {
+
+                    console.log("submit button clicked");
+                    $('.nav-tabs a:first').tab('show');
+                    // retrieving the input GO terms
+                    var preTerms = $("#inputTerms").val();
+                    var postTerms = "[";
+                    var arrayTerms = preTerms.split(",");
+                    var arrayLength = arrayTerms.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        postTerms += "'" + arrayTerms[i].trim() + "',"
+                    }
+                    postTerms = postTerms.slice(0, -1) + "]";
+
+                    // deleting any previous graph in main tab
+                    $("#graph-container").empty();
+
+
+                    // Start of initializing the graph
+
+                    {
+                        // Instantiate graph object
+                        var g = {
+                            nodes: [],
+                            edges: []
+                        };
+
+                        // Instantiate sigma object
+                        var s = new sigma({
+                            graph: g,
+                            renderer: {
+                                container: document.getElementById('graph-container'),
+                                type: 'canvas'
+                            },
+                            settings: {
+                                maxNodeSize: 30,
+                                maxEdgeSize: 12,
+                                labelAlignment: 'inside',
+                                doubleClickEnabled: false,
+                                defaultLabelSize:10,
+                                drawEdgeLabels:false,
+                                sideMargin: 30,
+                                font:'arial',
+                                fontStyle:'bold',
+                                hoverFontStyle:'bold',
+                                labelSize:"fixed",
+                                labelThreshold:20,
+                                zoomMax: 1,
+                                defaultLabelColor:"#fdffff",
+                                defaultLabelHoverColor:"#fdffff",
+                                nodeHaloColor: '#ecf0f1',
+                                edgeHaloColor: '#ecf0f1',
+                                nodeHaloSize: 18,
+                                edgeHaloSize: 20
+
+                            }
+                        });
+
+                        // sigma is ready
+                        console.log("sigma-initiated",s);
+                        sigma.renderers.def = sigma.renderers.canvas;
+
+                        query = "MATCH (from), (to), paths = (from)-[*]->(to) WHERE from.ID IN " + postTerms + " AND to.ID IN ['GO:0005575','GO:0008150', 'GO:0003674'] RETURN paths";
+
+                        // Start of passing cypher query
+                        {
+                            sigma.neo4j.cypher(
+                                    { url: 'http://52.51.139.110:7474'},
+                                    query,
+                                    s,
+                                    function() {
+                                        var i = 0;
+                                        var N = s.graph.nodes().length;
+                                        s.graph.nodes().forEach(function(n) {
+                                            n.label = n.neo4j_data['ID'];
+                                            n.name_Spaces = n.neo4j_labels[0];
+                                            if (n.name_Spaces  ==="BiologicalProcess"){
+                                                n.color = '#760F22';
+//                                    hover_color = '#000';
+                                            }
+                                            if (n.name_Spaces ==="MolecularFunction"){
+                                                n.color = '#2D73CB';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.name_Spaces ==="CellularComponent"){
+                                                n.color = '#218655';
+                                                hover_color = '#000';
+                                            }
+
+//                                var arr = ['GO:0008150','GO:0009653','GO:0048731','GO:0048856','GO:0009790','GO:0003206','GO:0048646','GO:0009887','GO:0003007'];
+//                                var arr_bool = (arr.indexOf(n.neo4j_data['go_term_id']) > -1);
+                                        });
+                                        s.graph.edges().forEach(function(n) {
+                                            n.type = 'tapered';
+                                            n.relationships = n.label;
+                                            n.size = 40;
+                                            if (n.label ==="is_a"){
+                                                n.color = '#628FCC';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="negatively_regulates"){
+                                                n.color = '#f75541';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="positively_regulates"){
+                                                n.color = '#43cf67';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="regulates"){
+                                                n.color = '#ddf76d';
+                                                hover_color = '#000';
+                                            }
+                                            if (n.label ==="part_of"){
+                                                n.color = '#585858';
+                                                hover_color = '#000';
+                                            }
+                                        });
+                                        // Start of Legend Styling
+                                        {
+                                            var myStyles = {
+                                                nodes: {
+                                                    color: {
+                                                        by: 'name_Spaces',
+                                                        scheme: 'schemes.categoryScheme'
+                                                    }
+                                                },
+                                                edges: {
+                                                    color: {
+                                                        by: 'relationships',
+                                                        scheme: 'schemes.relationTypeScheme'
+                                                    }
+                                                }
+                                            };
+
+                                            var myPalette = {
+                                                schemes: {
+                                                    categoryScheme: {
+                                                        'BiologicalProcess': '#760F22',
+                                                        'MolecularFunction': '#2D73CB',
+                                                        'CellularComponent': '#218655'
+                                                    },
+
+                                                    relationTypeScheme: {
+                                                        'is_a': '#628FCC',
+                                                        'negatively_regulates': '#CC3722',
+                                                        'positively_regulates': '#85CC76',
+                                                        'regulates':'#ddf76d',
+                                                        'part_of':'#585858'
+                                                    }
+                                                }
+                                            };
+
+                                            var design = sigma.plugins.design(s, {
+                                                styles: myStyles,
+                                                palette: myPalette
+                                            });
+
+                                            design.apply();
+//                    s.refresh();
+
+
+
+
+                                            var legendPlugin, textWidget, nodeIconWidget;
+
+                                            function init() {
+                                                legendPlugin = sigma.plugins.legend(s, true);
+//    legendPlugin.removeAllWidgets();
+                                                legendPlugin.setExternalCSS(['http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css']);
+                                                legendPlugin.setPlacement('right');
+                                                legendPlugin.addWidget('edge', 'size').setUnit('%');
+//    textWidget.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius ante ac orci ullamcorper porttitor. Curabitur euismod, arcu quis eleifend faucibus, tellus urna hendrerit enim, sit amet lacinia felis massa quis nibh.');
+//    legendPlugin.setVisibility(false);
+//    legendPlugin.exportPng();
+
+//    setTimeout(function () { legendPlugin.exportSvg(); }, 500);
+                                            }
+//                    setTimeout(init, 4000);
+
+                                            // In case the WebGL renderer is used, we must wait for FontAwesome to be loaded.
+                                            // http://www.w3.org/TR/css-font-loading/
+                                            if (document.fonts) {
+                                                // document.fonts.ready() method is going to be replaced with
+                                                // document.fonts.ready attribute in the future.
+                                                var fontsReady = document.fonts.ready;
+                                                if (typeof(fontsReady) == "function") {
+                                                    fontsReady = document.fonts.ready();
+                                                }
+                                                fontsReady.then(init);
+                                            }
+                                            else {
+                                                // wait or use a polyfill such as:
+                                                // https://github.com/zachleat/fontfaceonload
+                                                // https://github.com/smnh/FontLoader
+                                                setTimeout(init, 1000);
+                                            }
+                                        }
+                                        // End of Legend Styling end
+
+                                        // Configure the DAG layout:
+                                        var dagreListener = sigma.layouts.dagre.configure(s, {
+                                            directed: true, // take edge direction into account
+                                            rankdir: 'BT',  // Direction for rank nodes. Can be TB, BT, LR, or RL,
+                                                            // where T = top, B = bottom, L = left, and R = right.
+                                            easing: 'quadraticInOut', // animation transition function
+                                            duration: 800,   // animation duration
+                                            // nodes : s.graph.nodes().slice(0,30), // subset of nodes
+                                            // boundingBox: {minX: 10, maxX: 20, minY: 10, maxY:20} // constrain layout bounds ; object or true (all current positions of the given nodes)
+                                        });
+
+                                        // Bind the events:
+                                        dagreListener.bind('start stop interpolate', function(e) {
+                                        });
+
+
+                                        // Start the DAG layout:
+                                        sigma.layouts.dagre.start(s);
+
+
+                                        s.refresh();
+
+                                        // Instanciate the ActiveState plugin:
+                                        var activeState = sigma.plugins.activeState(s);
+
+                                        // Initialize the dragNodes plugin:
+                                        var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                                        // halo on active nodes:
+                                        function renderHalo() {
+                                            s.renderers[0].halo({
+                                                nodes: activeState.nodes()
+                                            });
+                                        }
+                                        s.renderers[0].bind('render', function(e) {
+                                            renderHalo();
+                                        })
+
+                                    }
+                            );
+                        }
+                        // End of passing cypher query
+                        s.refresh();
+
+
+                        // Start of Halo
+                        {
+                            // Remove duplicates in a specified array.
+                            // See http://stackoverflow.com/a/1584370
+                            function arrayUnique(array) {
+                                var a = array.concat();
+                                for(var i=0; i<a.length; ++i) {
+                                    for(var j=i+1; j<a.length; ++j) {
+                                        if(a[i] === a[j])
+                                            a.splice(j--, 1);
+                                    }
+                                }
+                                return a;
+                            };
+                            s.bind('hovers', function(e) {
+                                var adjacentNodes = [],
+                                        adjacentEdges = [];
+
+                                if (!e.data.enter.nodes.length) return;
+
+                                // Get adjacent nodes:
+                                e.data.enter.nodes.forEach(function(node) {
+                                    adjacentNodes = adjacentNodes.concat(s.graph.adjacentNodes(node.id));
+                                });
+
+                                // Add hovered nodes to the array and remove duplicates:
+                                adjacentNodes = arrayUnique(adjacentNodes.concat(e.data.enter.nodes));
+
+                                // Get adjacent edges:
+                                e.data.enter.nodes.forEach(function(node) {
+                                    adjacentEdges = adjacentEdges.concat(s.graph.adjacentEdges(node.id));
+                                });
+
+                                // Remove duplicates:
+                                adjacentEdges = arrayUnique(adjacentEdges);
+
+                                // Render halo:
+                                s.renderers[0].halo({
+                                    nodes: adjacentNodes,
+                                    edges: adjacentEdges
+                                });
+                            });
+                        }
+                        // End of Halo
+
+                        // start of Download Image
+                        {
+
+//                        function generateImage(mouse, clip) {
+////                                var size = parseInt(_.$("width").value);
+////                                var color = _.$("color").value;
+//                            console.log("download buttons been clicked again");
+//                            sigma.plugins.image(s, s.renderers[0], {
+//                                download: true,
+//                                size: 1800,
+//                                margin: 50,
+//                                background: '#FFFFFF',
+//                                clip: clip,
+//                                zoomRatio: 1,
+//                                labels: false
+//                            });
+//                        }
+//                        document.getElementById("pngClick").onclick = function() {generateImage()};
+                        }
+                        // End of Downloading Image
+
+                        // Start of tooltips
+                        { // start of tooltips
+                            var config = {
+                                node: [{
+                                    show: 'rightClickNode',
+                                    cssClass: 'sigma-tooltip',
+                                    position: 'bottom',
+                                    autoadjust: true,
+                                    template:
+                                    '<div class="arrow"></div>' +
+                                    ' <div class="sigma-tooltip-header">{{label}}</div>' +
+                                    '  <div class="sigma-tooltip-body">' +
+                                    '   <p>{{neo4j_data.Name}} </p>' +
+                                    '  </div>' ,
+                                    renderer: function(node, template) {
+                                        node.degree = this.degree(node.id);
+                                        return Mustache.render(template, node);
+                                    }
+                                }],
+                                stage: {
+                                    template:
+                                    '<div class="arrow"></div>' +
+                                    '<div class="sigma-tooltip-header"> click on any node</div>'
+                                }
+                            };
+
+//             Instanciate the tooltips plugin with a Mustache renderer for node tooltips:
+                            var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+
+
+                            tooltips.bind('shown', function(event) {
+                            });
+
+                            tooltips.bind('hidden', function(event) {
+                            });
+                        }
+                        // End of tootips
+
+
+
+                        // Start of Node double click binding
+                        s.bind('doubleClickNode ', function(e) {
+
+                            $('.nav-pills a:first').tab('show');
+
+
+
+                            console.log("node is clicked!");
+                            id = e.data.node.neo4j_data['ID'];
+                            var name = e.data.node.neo4j_data['Name'];
+                            var def = e.data.node.neo4j_data['Definition'];
+                            var com = e.data.node.neo4j_data['Comment'];
+                            var syn = e.data.node.neo4j_data['Synonyms'];
+                            var alt = e.data.node.neo4j_data['AlternativeIDs'];
+                            var link = e.data.node.neo4j_data['ID'];
+
+                            var modal = document.getElementById('myModal');
+
+                            $('#modalLabel').html ( id );
+                            $('#modalName').html ( name );
+                            $('#modalDef').html ( def );
+                            $('#modalCom').html ( com );
+//                        $('#modalSyn').html ( syn );
+//                        $('#modalAlt').html ( alt );
+                            var synLength = syn.length;
+                            for (var i = 0; i < synLength; i++) {
+                                $('#modalSyn').append(  "<li>"+syn[i]+"</li>");
+                            }
+
+                            var altLength = alt.length;
+                            for (var i = 0; i < altLength; i++) {
+                                $('#modalAlt').append(  "<li>"+alt[i]+"</li>");
+                            }
+
+                            $('#modalLink').html ( id );
+                            $('#modalLink').attr('href','http://amigo.geneontology.org/amigo/term/'+ id);
+                            $('#myModal').modal('show')  ;
+
+
+                        });
+                        // End of Node double click binding
+
+                    }
+                    // End of initializing the graph
+
+
+                });
+
+                // NetTab Function
+                function registerComposeButtonEvent() {
+                    /* just for this demo */
+                    $('#modalMore').click(function (e) {
+                        e.preventDefault();
+
+                        var tabId = "compose" + composeCount; //this is id on tab content div where the
+                        var graphId = "graph" + composeCount; //this is id for the graph instance
+                        var sigmaId = "sigma" + composeCount; //this is id for the sigma instance
+                        var containerId = "container" + composeCount; //this is id for the sigma instance
+                        composeCount = composeCount + 1; //increment compose count
+
+                        $('.nav-tabs').append('<li><a href="#' + tabId + '"><button class="close closeTab" type="button" > x</button>' + id + '</a></li>');
+                        $('.tab-content').append('<div class="tab-pane" id='+ tabId+ '><div class="graph-containers container col-xs-12 col-sm-12 col-md-12 col-lg-12" id='+containerId+'></div></div>');
+
+//                    var query = "MATCH (a)-[r]-(b) WHERE a.ID = '"+id+"' RETURN a,b,r";
+
+                        // Start of initializing the graph
+
+                        {
+                            // Instantiate graph object
+                            var g = {
+                                nodes: [],
+                                edges: []
+                            };
+
+                            // Instantiate sigma object
+                            var s = new sigma({
+                                graph: g,
+                                renderer: {
+                                    container: document.getElementById(containerId),
+                                    type: 'canvas'
+                                },
+                                settings: {
+                                    maxNodeSize: 20,
+                                    maxEdgeSize: 12,
+                                    labelAlignment: 'inside',
+                                    doubleClickEnabled: false,
+                                    defaultLabelSize:10,
+                                    drawEdgeLabels:false,
+                                    sideMargin: 30,
+                                    font:'arial',
+                                    fontStyle:'bold',
+                                    hoverFontStyle:'bold',
+                                    labelSize:"fixed",
+                                    labelThreshold:20,
+                                    zoomMax: 1,
+                                    defaultLabelColor:"#fdffff",
+                                    defaultLabelHoverColor:"#fdffff",
+                                    nodeHaloColor: '#C1C5C6',
+                                    edgeHaloColor: '#C1C5C6',
+                                    nodeHaloSize: 18,
+                                    edgeHaloSize: 20,
+                                    edgeHoverSizeRatio:2,
+                                    enableHovering: true,
+
+                                }
+                            });
+
+                            // sigma is ready
+                            sigma.renderers.def = sigma.renderers.canvas;
+
+                            var query = "MATCH (a)-[r]-(b) WHERE a.ID = '"+id+"' RETURN a,b,r";
+                            // Start of passing cypher query
+                            {
+                                sigma.neo4j.cypher(
+                                        { url: 'http://52.51.139.110:7474'},
+                                        query,
+                                        s,
+                                        function() {
+                                            var i = 0;
+                                            var N = s.graph.nodes().length;
+                                            s.graph.nodes().forEach(function(n) {
+                                                n.label = n.neo4j_data['ID'];
+                                                n.name_Spaces = n.neo4j_labels[0];
+
+                                                if (n.name_Spaces  ==="BiologicalProcess"){
+                                                    n.color = '#760F22';
+//                                    hover_color = '#000';
+                                                }
+                                                if (n.name_Spaces ==="MolecularFunction"){
+                                                    n.color = '#2D73CB';
+                                                    hover_color = '#000';
+                                                }
+                                                if (n.name_Spaces ==="CellularComponent"){
+                                                    n.color = '#218655';
+                                                    hover_color = '#000';
+                                                }
+
+//                                var arr = ['GO:0008150','GO:0009653','GO:0048731','GO:0048856','GO:0009790','GO:0003206','GO:0048646','GO:0009887','GO:0003007'];
+//                                var arr_bool = (arr.indexOf(n.neo4j_data['go_term_id']) > -1);
+                                            });
+                                            s.graph.edges().forEach(function(n) {
+                                                n.type = 'tapered';
+                                                n.relationships = n.label;
+                                                n.size = 40;
+                                                if (n.label ==="is_a"){
+                                                    n.color = '#628FCC';
+                                                    hover_color = '#000';
+                                                }
+                                                if (n.label ==="negatively_regulates"){
+                                                    n.color = '#f75541';
+                                                    hover_color = '#000';
+                                                }
+                                                if (n.label ==="positively_regulates"){
+                                                    n.color = '#43cf67';
+                                                    hover_color = '#000';
+                                                }
+                                                if (n.label ==="regulates"){
+                                                    n.color = '#ddf76d';
+                                                    hover_color = '#000';
+                                                }
+                                                if (n.label ==="part_of"){
+                                                    n.color = '#585858';
+                                                    hover_color = '#000';
+                                                }
+                                            });
+                                            // Start of Legend Styling
+                                            {
+                                                var myStyles = {
+                                                    nodes: {
+                                                        color: {
+                                                            by: 'name_Spaces',
+                                                            scheme: 'schemes.categoryScheme'
+                                                        }
+                                                    },
+                                                    edges: {
+                                                        color: {
+                                                            by: 'relationships',
+                                                            scheme: 'schemes.relationTypeScheme'
+                                                        }
+                                                    }
+                                                };
+
+                                                var myPalette = {
+                                                    schemes: {
+                                                        categoryScheme: {
+                                                            'BiologicalProcess': '#760F22',
+                                                            'MolecularFunction': '#2D73CB',
+                                                            'CellularComponent': '#218655'
+                                                        },
+
+                                                        relationTypeScheme: {
+                                                            'is_a': '#628FCC',
+                                                            'negatively_regulates': '#CC3722',
+                                                            'positively_regulates': '#85CC76',
+                                                            'regulates':'#ddf76d',
+                                                            'part_of':'#585858'
+                                                        }
+                                                    }
+                                                };
+
+                                                var design = sigma.plugins.design(s, {
+                                                    styles: myStyles,
+                                                    palette: myPalette
+                                                });
+
+                                                design.apply();
+//                    s.refresh();
+
+
+
+
+                                                var legendPlugin, textWidget, nodeIconWidget;
+
+                                                function init() {
+                                                    legendPlugin = sigma.plugins.legend(s, true);
+//    legendPlugin.removeAllWidgets();
+                                                    legendPlugin.setExternalCSS(['http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css']);
+                                                    legendPlugin.setPlacement('right');
+                                                    legendPlugin.addWidget('edge', 'size').setUnit('%');
+//    textWidget.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius ante ac orci ullamcorper porttitor. Curabitur euismod, arcu quis eleifend faucibus, tellus urna hendrerit enim, sit amet lacinia felis massa quis nibh.');
+//    legendPlugin.setVisibility(false);
+//    legendPlugin.exportPng();
+
+//    setTimeout(function () { legendPlugin.exportSvg(); }, 500);
+                                                }
+//                    setTimeout(init, 4000);
+
+                                                // In case the WebGL renderer is used, we must wait for FontAwesome to be loaded.
+                                                // http://www.w3.org/TR/css-font-loading/
+                                                if (document.fonts) {
+                                                    // document.fonts.ready() method is going to be replaced with
+                                                    // document.fonts.ready attribute in the future.
+                                                    var fontsReady = document.fonts.ready;
+                                                    if (typeof(fontsReady) == "function") {
+                                                        fontsReady = document.fonts.ready();
+                                                    }
+                                                    fontsReady.then(init);
+                                                }
+                                                else {
+                                                    // wait or use a polyfill such as:
+                                                    // https://github.com/zachleat/fontfaceonload
+                                                    // https://github.com/smnh/FontLoader
+                                                    setTimeout(init, 1000);
+                                                }
+                                            }
+                                            // End of Legend Styling end
+                                            // Start of Dag layout
+                                            {
+//                                            // Configure the DAG layout:
+//                                            var dagreListener = sigma.layouts.dagre.configure(s, {
+//                                                directed: false, // take edge direction into account
+//                                                rankdir: 'BT',  // Direction for rank nodes. Can be TB, BT, LR, or RL,
+//                                                // where T = top, B = bottom, L = left, and R = right.
+//                                                easing: 'cubicInOut', // animation transition function
+//                                                duration: 1000,   // animation duration
+//                                                nodes : s.graph.nodes().slice(0,20) // subset of nodes
+//                                                // boundingBox: {minX: 10, maxX: 20, minY: 10, maxY:20} // constrain layout bounds ; object or true (all current positions of the given nodes)
+//                                            });
+//
+//                                            // Bind the events:
+//                                            dagreListener.bind('start stop interpolate', function(e) {
+//                                            });
+//
+//
+//                                            // Start the DAG layout:
+//                                            sigma.layouts.dagre.start(s);
+                                            }
+                                            // End of Dag layout
+
+                                            // start of Fruchterman
+                                            {
+                                                // Configure the Fruchterman-Reingold algorithm:
+                                                var frListener = sigma.layouts.fruchtermanReingold.configure(s, {
+                                                    iterations: 100,
+                                                    easing: 'quadraticInOut',
+                                                    duration: 800
+                                                });
+
+// Bind the events:
+                                                frListener.bind('start stop interpolate', function(e) {
+                                                    console.log(e.type);
+                                                });
+
+// Start the Fruchterman-Reingold algorithm:
+                                                sigma.layouts.fruchtermanReingold.start(s);
+                                            }
+                                            // End of Fruchterman
+
+                                            // Start of zooming In
+                                            {
+                                                var N = s.graph.nodes().length;
+                                                var factor = 0.15;
+
+                                                if (N > 4) {
+                                                    factor += 0.1
+                                                }
+                                                if (N > 7) {
+                                                    factor += 0.1
+                                                }
+                                                if (N > 10) {
+                                                    factor += 0.1
+                                                }
+
+                                                if (N >15) {
+                                                    factor += 0.1
+                                                }
+                                                if (N >25) {
+                                                    factor += 0.1
+                                                }
+                                                if (N >35) {
+                                                    factor += 0.1
+                                                }
+                                                if (N >45) {
+                                                    factor += 0.1
+                                                }
+
+                                                var cam = s.camera;
+                                                cam.goTo({
+                                                    ratio: cam.ratio * factor / cam.settings('zoomingRatio')
+                                                });
+                                            }
+                                            // End of zooming In
+                                            s.refresh();
+
+                                            // Instanciate the ActiveState plugin:
+                                            var activeState = sigma.plugins.activeState(s);
+
+                                            // Initialize the dragNodes plugin:
+                                            var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                                            // halo on active nodes:
+                                            function renderHalo() {
+                                                s.renderers[0].halo({
+                                                    nodes: activeState.nodes()
+                                                });
+                                            }
+                                            s.renderers[0].bind('render', function(e) {
+                                                renderHalo();
+                                            })
+
+                                        }
+                                );
+                            }
+                            // End of passing cypher query
+                            s.refresh();
+
+
+                            // Start of Halo
+                            {
+                                // Remove duplicates in a specified array.
+                                // See http://stackoverflow.com/a/1584370
+                                function arrayUnique(array) {
+                                    var a = array.concat();
+                                    for(var i=0; i<a.length; ++i) {
+                                        for(var j=i+1; j<a.length; ++j) {
+                                            if(a[i] === a[j])
+                                                a.splice(j--, 1);
+                                        }
+                                    }
+                                    return a;
+                                };
+                                s.bind('hovers', function(e) {
+                                    var adjacentNodes = [],
+                                            adjacentEdges = [];
+
+                                    if (!e.data.enter.nodes.length) return;
+
+                                    // Get adjacent nodes:
+                                    e.data.enter.nodes.forEach(function(node) {
+                                        adjacentNodes = adjacentNodes.concat(s.graph.adjacentNodes(node.id));
+                                    });
+
+                                    // Add hovered nodes to the array and remove duplicates:
+                                    adjacentNodes = arrayUnique(adjacentNodes.concat(e.data.enter.nodes));
+
+                                    // Get adjacent edges:
+                                    e.data.enter.nodes.forEach(function(node) {
+                                        adjacentEdges = adjacentEdges.concat(s.graph.adjacentEdges(node.id));
+                                    });
+
+                                    // Remove duplicates:
+                                    adjacentEdges = arrayUnique(adjacentEdges);
+
+                                    // Render halo:
+                                    s.renderers[0].halo({
+                                        nodes: adjacentNodes,
+                                        edges: adjacentEdges
+                                    });
+                                });
+                            }
+                            // End of Halo
+
+
+                            // Start of tooltips
+                            { // start of tooltips
+                                var config = {
+                                    node: [{
+                                        show: 'rightClickNode',
+                                        cssClass: 'sigma-tooltip',
+                                        position: 'bottom',
+                                        autoadjust: true,
+                                        template:
+                                        '<div class="arrow"></div>' +
+                                        ' <div class="sigma-tooltip-header">{{label}}</div>' +
+                                        '  <div class="sigma-tooltip-body">' +
+                                        '   <p>{{neo4j_data.Name}} </p>' +
+                                        '  </div>' ,
+                                        renderer: function(node, template) {
+                                            node.degree = this.degree(node.id);
+                                            return Mustache.render(template, node);
+                                        }
+                                    }],
+                                    stage: {
+                                        template:
+                                        '<div class="arrow"></div>' +
+                                        '<div class="sigma-tooltip-header"> click on any node</div>'
+                                    }
+                                };
+
+//             Instanciate the tooltips plugin with a Mustache renderer for node tooltips:
+                                var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+
+
+                                tooltips.bind('shown', function(event) {
+                                });
+
+                                tooltips.bind('hidden', function(event) {
+                                });
+                            }
+                            // End of tootips
+
+
+
+                            // Start of Node double click binding
+                            s.bind('doubleClickNode ', function(e) {
+
+                                $('.nav-pills a:first').tab('show');
+
+
+
+                                console.log("node is clicked!");
+                                id = e.data.node.neo4j_data['ID'];
+                                var name = e.data.node.neo4j_data['Name'];
+                                var def = e.data.node.neo4j_data['Definition'];
+                                var com = e.data.node.neo4j_data['Comment'];
+                                var syn = e.data.node.neo4j_data['Synonyms'];
+                                var alt = e.data.node.neo4j_data['AlternativeIDs'];
+                                var link = e.data.node.neo4j_data['ID'];
+
+                                var modal = document.getElementById('myModal');
+
+                                $('#modalLabel').html ( id );
+                                $('#modalName').html ( name );
+                                $('#modalDef').html ( def );
+                                $('#modalCom').html ( com );
+//                        $('#modalSyn').html ( syn );
+//                        $('#modalAlt').html ( alt );
+                                var synLength = syn.length;
+                                for (var i = 0; i < synLength; i++) {
+                                    $('#modalSyn').append(  "<li>"+syn[i]+"</li>");
+                                }
+
+                                var altLength = alt.length;
+                                for (var i = 0; i < altLength; i++) {
+                                    $('#modalAlt').append(  "<li>"+alt[i]+"</li>");
+                                }
+
+                                $('#modalLink').html ( id );
+                                $('#modalLink').attr('href','http://amigo.geneontology.org/amigo/term/'+ id);
+                                $('#myModal').modal('show')  ;
+
+
+                            });
+                            // End of Node double click binding
+
+                        }
+                        // End of initializing the graph
+
+
+                        $(this).tab('show');
+                        showTab(tabId);
+                        registerCloseEvent();
+                    });
+                }// END of NetTab Function
+            </script>   <!--END of script-->
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-label="modalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<h4 class="model-title" id="modalLabel"></h4>-->
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <a class="btn btn-link btn-lg" title="click to find this term in GO website" id='modalLink' href="" target="_blank" role="button"></a>
+                </div> <!--modal-header-->
+                <div class="modal-body" id="myTabs">
+                    <!--// nav-justified" style="width: auto;margin:20px 10px 20px 0">-->
+                    <h4 id="modalName"></h4>
+                    <ul class="nav nav-pills nav-center" style="margin:20px 10px 20px 0">
+                        <li class="active"><a href="#tabDef" data-toggle="tab"><b>Definition</b></a></li>
+                        <li><a href="#tabCom" data-toggle="tab"><b>Comments</b></a></li>
+                        <li><a href="#tabSyn" data-toggle="tab"><b>Synonyms</b></a></li>
+                        <li><a href="#tabAlt" data-toggle="tab"><b>Alternative IDs</b></a></li>
+                    </ul>
+                    <div class="tab-content" style="height: auto; width: auto; margin:10px 10px 10px 20px">
+                        <div class="tab-pane active" id="tabDef">
+                            <p id="modalDef"></p>
+                        </div>
+                        <div class="tab-pane" id="tabCom">
+                            <p id="modalCom"></p>
+                        </div>
+                        <div class="tab-pane" id="tabSyn">
+                            <p id="modalSyn"></p>
+                        </div>
+                        <div class="tab-pane" id="tabAlt">
+                            <p id="modalAlt"></p>
+                        </div>
+                    </div><!-- tab content -->
+                </div> <!--modal-body-->
+
+                <div class="modal-footer">
+                    <button type="button" id="hiddenButton" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="modalMore" aria-label="More"><span>More</span></button>  <!--button-more-->
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"><span>Close</span></button> <!--button-cancel-->
+                    <script>
+                        $("#hiddenButton").hide();
+                    </script>
+                </div> <!--modal-footer-->
+            </div> <!--modal-content-->
+        </div> <!--modal-dialog-->
+    </div> <!--modal-->
+
+
+    <!--END GO -->
+
 
 
     <!-- Credits -->
@@ -230,14 +1560,14 @@
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle collapsed" data-toggle="collapse"
                                        data-parent="#accordion"
-                                       href="#collapseOne" aria-expanded="false">Who are you guys?</a>
+                                       href="#collapseOne" aria-expanded="false">Who are we?</a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-expanded="false"
                                  style="height: 0px;">
                                 <div class="panel-body">
                                     <p>
-                                        Im final year student at University of Malaya - Bioinformatics Programe in Kuala Lumpur/ Malaysia
+                                        I'm a Bioinformatician working at Data Science Lab/ Institute of Biological Sciences - University of Malaya. Data Science Lab under the supervision of Associate Prof. Dr. Sarinder Kaur.
                                     </p>
                                 </div>
                             </div>
@@ -252,7 +1582,7 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
                                 <div class="panel-body">
-                                    Graph4Bio is a platform which contains a group of graph-based tool to analyse and visualize biological data
+                                    Graph4Bio is a platform for graph-based applications which will help in analysing and visualizing biological data, at present we are merely developing graphGO but there are more goods on the way.
                                 </div>
                             </div>
                         </div>
@@ -261,12 +1591,26 @@
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle collapsed" data-toggle="collapse"
                                        data-parent="#accordion"
-                                       href="#collapseThree" aria-expanded="false">What is graphGO</a>
+                                       href="#collapseThree" aria-expanded="false">What is graphGO?</a>
                                 </h4>
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
                                 <div class="panel-body">
-                                    graphGO is a super awesome graph-based GO terms browser, we tried to make it interactive and simple tool
+                                    graphGO is an efficient graph-based GO terms browser. We tried to make graphGO highly interactive yet simple for the user to extract hidden relationship between GO terms and the data associated with them. graphGO visualization contains nodes and relationships, the nodes represent GO terms with different color for each name space, and the relationships represent the relationships between GO terms. The GO relationships in graphGO are is_a, regulates, part_of, positively_regulates, negatively_regulates.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseFour" aria-expanded="false">How frequently graphGO is updated?</a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    graphGO is automatically updated on monthly basis with the help of python script which will download the raw data from the official GO achieve, then parse and load the GO terms into Neo4j database instance on the cloud.
                                 </div>
                             </div>
                         </div>
@@ -275,7 +1619,9 @@
             </div>
         </div>
     </div>
-
+    <!--graphGO is built using Linkurious.js javascript library which means it doesn't require extra software to visualize the graph, and the data associated with each term is accessible simply by clicking on the node. Moreover the relationships are illustrated in presentable manner to deliver user friendly experience.-->
+    <!--How frequently graphGO is updated ? -->
+    <!--graphGO is automatically updated on monthly basis with the help of python script which will download the raw data from the official GO achieve, then parse and load the GO terms into Neo4j database instance on the cloud. -->
     <!-- ScrollToTop Button -->
     <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span
             class="fa fa-chevron-up"></span></a>

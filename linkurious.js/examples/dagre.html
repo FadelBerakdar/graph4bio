@@ -140,7 +140,7 @@ var dagreListener = sigma.layouts.dagre.configure(s, {
   // nodes : s.graph.nodes().slice(0,30), // subset of nodes
   // boundingBox: {minX: 10, maxX: 20, minY: 10, maxY:20} // constrain layout bounds ; object or true (all current positions of the given nodes)
 });
-console.log("first" + sigma.layouts.dagre.isRunning(s));
+
 // Bind the events:
 dagreListener.bind('start stop interpolate', function(e) {
   console.log(e.type);
@@ -148,5 +148,4 @@ dagreListener.bind('start stop interpolate', function(e) {
 
 // Start the DAG layout:
 sigma.layouts.dagre.start(s);
-console.log("Second" + sigma.layouts.dagre.isRunning(s));
 </script>

@@ -1,8 +1,197 @@
+
+
+
+.graph-containers{
+    /*border:solid lightgray;*/
+    /*border-width: 1px;*/
+    height:100%;
+    padding:0 20px 0 0 ;
+    margin: -5px -5px -5px -5px;
+    /*width:auto;*/
+    /*width:64%;*/
+    /*margin-right: 5px;*/
+    /*box-sizing: border-box;*/
+    display: inline-block;
+    /*background-color: #739ECB';*/
+
+
+}
+
+
+.tab-pane {
+    width:auto;
+    height:98%;
+    padding:0 0 0 0 ;
+    background-color: #fdffff;
+
+}
+
+.graph-info {
+    background: lightgray;
+    height:20%;
+    margin: 5px 5px 5px 5px;
+    padding: 15px 15px 15px 15px;
+}
+#go-terms {
+
+}
+#go-graph{
+
+}
+body, html {
+    height:auto;
+    width:auto;
+}
+.tab-content{
+    height:86vh;
+}
+
+.dropup {
+    padding:10px 10px 10px 10px;
+    /*float:right ;*/
+}
+/* Tooltip */
+.sigma-tooltip {
+    max-width: 400px;
+    max-height: 480px;
+    background-color: lightgray;
+    /*background-color: rgb(249, 247, 237);*/
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    position:relative;
+    font-size: 12px;
+    margin:20px 20px 20px 20px;
+
+}
+
+.sigma-tooltip-header {
+    font-variant: small-caps;
+    font-size: 120%;
+    color: #437356;
+    border-bottom: 1px solid gray;
+    /*border-bottom: 1px solid #aac789;*/
+    padding: 10px;
+}
+
+.sigma-tooltip-body {
+    padding: 10px;
+}
+
+.sigma-tooltip-body th {
+    color: #999;
+    text-align: left;
+}
+
+.sigma-tooltip-footer {
+    padding: 10px;
+    border-top: 1px solid #808080;
+    /*border-top: 1px solid #aac789;*/
+
+}
+
+.sigma-tooltip > .arrow {
+    border-width: 10px;
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.sigma-tooltip.top {
+    margin-top: -12px;
+}
+.sigma-tooltip.top > .arrow {
+    left: 50%;
+    bottom: -10px;
+    margin-left: -10px;
+    border-top-color: rgb(249, 247, 237);
+    border-bottom-width: 0;
+}
+
+.sigma-tooltip.bottom {
+    margin-top: 12px;
+}
+.sigma-tooltip.bottom > .arrow {
+    left: 50%;
+    top: -10px;
+    margin-left: -10px;
+    border-bottom-color: rgb(249, 247, 237);
+    border-top-width: 0;
+}
+
+.sigma-tooltip.left {
+    margin-left: -12px;
+}
+.sigma-tooltip.left > .arrow {
+    top: 50%;
+    right: -10px;
+    margin-top: -10px;
+    border-left-color: rgb(249, 247, 237);
+    border-right-width: 0;
+}
+
+.sigma-tooltip.right {
+    margin-left: 12px;
+}
+.sigma-tooltip.right > .arrow {
+    top: 50%;
+    left: -10px;
+    margin-top: -10px;
+    border-right-color: rgb(128, 128, 128);
+    border-left-width: 0;
+}
+
+/*i {*/
+    /*margin: 16px;*/
+    /*width: 30px;*/
+    /*height: 20px;*/
+    /*display: block;*/
+    /*cursor: pointer;*/
+    /*border: 3px solid #000;*/
+    /*z-index: 9999;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+/*}*/
+
+/*i::before, i::after {*/
+    /*content: ' ';*/
+    /*width: 12px;*/
+    /*height: 12px;*/
+    /*position: absolute;*/
+/*}*/
+
+/*i::before {*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-style: solid;*/
+    /*border-width: 4px 0 0 4px;*/
+    /*border-color: transparent transparent transparent #000;*/
+    /*margin-top: 14px;*/
+    /*margin-left: 2px;*/
+/*}*/
+
+/*i::after {*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-style: solid;*/
+    /*border-width: 0 4px 4px 0;*/
+    /*border-color: transparent #000 transparent transparent;*/
+    /*margin-top: 2px;*/
+    /*margin-left: 24px;*/
+/*}*/
+
+
+
+
+
+
 /*-----------------------------------------------------------------------------------
         Companyportfolio
         Built with Blocs
 -----------------------------------------------------------------------------------*/
-
 body{
     margin:0;
     padding:0;
@@ -729,4 +918,60 @@ a[data-lightbox]:hover img{
         display:none;
     }
 }
+
+/********** Tabs Stuff ************/
+
+
+.panel.with-nav-tabs .panel-heading{
+    padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs{
+    border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+    margin-bottom: -1px;
+}
+/********************************************************************/
+/*** PANEL DEFAULT ***/
+.with-nav-tabs.panel-default .nav-tabs > li > a,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+}
+.with-nav-tabs.panel-default .nav-tabs > .open > a,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+    background-color: #ddd;
+    border-color: transparent;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+    color: #555;
+    background-color: #fff;
+    border-color: #ddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li .close {
+    margin: -2px 0 0 10px;
+    font-size: 18px;
+}
+.marginBottom {
+    margin-bottom :1px !important;
+}
+.operationDiv {
+    padding:5px 10px 5px 5px;
+}
+.operationDivWrapper {
+    margin-top:-1px;
+}
+.leftMenu {
+    height: 70%;
+    background-color: #E6E6E6;
+    border-right: 2px solid #BFBFBF;
+}
+
 #success_message{ display: none;}

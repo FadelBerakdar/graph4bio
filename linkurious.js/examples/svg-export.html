@@ -49,6 +49,8 @@
 <script src="../plugins/sigma.layouts.forceAtlas2/worker.js"></script>
 <script src="../plugins/sigma.layouts.forceAtlas2/supervisor.js"></script>
 <script src="../plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.tapered.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.tapered.js"></script>
 <div id="container">
   <style>
     #graph-container {
@@ -116,10 +118,30 @@ s = new sigma({
   graph: g
 });
 
+var s = new sigma({
+  graph: g,
+  renderer: {
+    container: document.getElementById('graph-container'),
+    type: 'canvas'
+  },
+  settings: {
+    maxNodeSize: 35,
+    maxEdgeSize: 12
+
+
+  }
+});
+
 // Adding a canvas renderer
-s.addRenderer({
-  container: 'graph-container',
-  type: 'canvas'
+//s.addRenderer({
+//  container: 'graph-container',
+//  type: 'canvas'
+//});
+s.graph.edges().forEach(function(n) {
+  n.type = 'tapered';
+  n.size = 40;
+  console.log(n);
+
 });
 
 s.refresh();
